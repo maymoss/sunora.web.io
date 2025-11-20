@@ -1,36 +1,8 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="shortcut icon" href="images/favicon.png" type="">
-
-  <title> Feane </title>
-
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-  <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-  <!-- nice select  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
-  <!-- font awesome style -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
-
-  <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
-
-</head>
+<!-- head section -->
+<head id="head-placeholder"></footer>
+<!-- head section -->
 
 <body class="sub_page">
 
@@ -215,6 +187,24 @@ fetch(footerUrl)
     .then(html => {
         // 3. 將內容插入到 footer-placeholder 容器中
         document.getElementById('footer-placeholder').innerHTML = html;
+    })
+    .catch(error => {
+        console.error('載入腳註失敗:', error);
+    });
+  
+const headUrl = 'head.html'; 
+
+// 2. 使用 fetch API 載入內容
+fetch(headUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('無法載入 head.html');
+        }
+        return response.text();
+    })
+    .then(html => {
+        // 3. 將內容插入到 footer-placeholder 容器中
+        document.getElementById('head-placeholder').innerHTML = html;
     })
     .catch(error => {
         console.error('載入腳註失敗:', error);
