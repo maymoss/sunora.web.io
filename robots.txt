@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://maymoss.github.io/sunora.web.io/sitemap.xml
+Sitemap: https://maymoss.github.io/sunora.web.io/Sitemap.xml
