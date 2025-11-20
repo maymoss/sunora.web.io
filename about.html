@@ -25,20 +25,10 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav  mx-auto ">
-              <li class="nav-item ">
-                <a class="nav-link" href="index.html">Home </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="menu.html">Menu</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span> </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="book.html">Book Table</a>
-              </li>
+            
+            <ul id="navbar-placeholder">
             </ul>
+            
             <div class="user_option">
               <a href="" class="user_link">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -172,8 +162,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
-<script>
-  
+<script>  
 const headUrl = 'head.html'; 
 
 // 2. 使用 fetch API 載入內容
@@ -187,6 +176,23 @@ fetch(headUrl)
     .then(html => {
         // 3. 將內容插入到 footer-placeholder 容器中
         document.getElementById('head-placeholder').innerHTML = html;
+    })
+    .catch(error => {
+        console.error('載入腳註失敗:', error);
+    });
+
+const navbarUrl = 'navbar.html';
+// 2. 使用 fetch API 載入內容
+fetch(navbarUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('無法載入 navbar.html');
+        }
+        return response.text();
+    })
+    .then(html => {
+        // 3. 將內容插入到 footer-placeholder 容器中
+        document.getElementById('navbar-placeholder').innerHTML = html;
     })
     .catch(error => {
         console.error('載入腳註失敗:', error);
