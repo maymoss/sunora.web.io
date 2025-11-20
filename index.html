@@ -1,7 +1,23 @@
 <!DOCTYPE html>
 <html>
 <!-- head section -->
-<head id="head-placeholder"></head>
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+
+  <title>森曜永續管理顧問</title>
+  <meta name="description" content="森曜永續管理顧問首頁.....">
+  
+
+</head>
 <!-- head section -->
 <body>
 
@@ -24,7 +40,20 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-           <ul id="navbar-placeholder" class="navbar-nav mx-auto "></ul>
+            <ul class="navbar-nav mx-auto ">
+              <li class="nav-item" id="indexhtml">
+                <a class="nav-link" href="index.html">首頁 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item" id="menuhtml">
+                <a class="nav-link" href="menu.html">服務</a>
+              </li>
+              <li class="nav-item" id="abouthtml">
+                <a class="nav-link" href="about.html">關於我們</a>
+              </li>
+              <li class="nav-item" id="bookhtml">
+                <a class="nav-link" href="book.html">聯絡我們</a>
+              </li>
+            </ul>
             <div class="user_option">
               <a href="" class="user_link">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -741,7 +770,86 @@
   <!-- end book section -->
 
   <!-- footer section -->
-  <footer id="footer-placeholder"></footer>
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              聯絡資訊
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Location
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +XXXXXXXXXXXX
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  sunora.mgt@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              地址
+            </a>
+            <p>
+              詳細地址
+            </p>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            聯絡時間
+          </h4>
+          <p>
+            日期
+          </p>
+          <p>
+            時間
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="#">Brooks</a><br><br>
+          <!--<a href="https://html.design/">Free Html Templates</a><br><br>
+          &copy; <span id="displayYear"></span> Distributed By
+          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>-->
+        </p>
+      </div>
+    </div>
+  </footer>
   <!-- footer section -->
 
   <!-- jQery -->
@@ -797,9 +905,6 @@
   
   // 載入 NAVBAR 內容
   loadHtml('navbar.html', document.getElementById('navbar-placeholder'), 'indexhtml');
-  
-  // 載入 FOOTER 內容
-  loadHtml('footer.html', document.getElementById('footer-placeholder'), 'indexhtml');
   </script>
 </body>
 
