@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maymoss.github.io/sunora.web.io/sitemap.xml
