@@ -1,37 +1,8 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="shortcut icon" href="images/favicon.png" type="">
-
-  <title>森曜永續管理顧問</title>
-  <meta name="description" content="森曜永續管理顧問首頁.....">
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-  <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-  <!-- nice select  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
-  <!-- font awesome style -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
-
-  <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
-
-</head>
-
+<!-- head section -->
+<head id="head-placeholder"></head>
+<!-- head section -->
 <body>
 
   <div class="hero_area">
@@ -53,20 +24,7 @@
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav  mx-auto ">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">首頁 <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="menu.html">服務</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">關於我們</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="book.html">聯絡我們</a>
-              </li>
-            </ul>
+           <ul id="navbar-placeholder" class="navbar-nav mx-auto "></ul>
             <div class="user_option">
               <a href="" class="user_link">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -783,86 +741,7 @@
   <!-- end book section -->
 
   <!-- footer section -->
-  <footer class="footer_section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 footer-col">
-          <div class="footer_contact">
-            <h4>
-              聯絡資訊
-            </h4>
-            <div class="contact_link_box">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  Location
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  Call +XXXXXXXXXXXX
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span>
-                  sunora.mgt@gmail.com
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 footer-col">
-          <div class="footer_detail">
-            <a href="" class="footer-logo">
-              地址
-            </a>
-            <p>
-              詳細地址
-            </p>
-            <div class="footer_social">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-pinterest" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 footer-col">
-          <h4>
-            聯絡時間
-          </h4>
-          <p>
-            日期
-          </p>
-          <p>
-            時間
-          </p>
-        </div>
-      </div>
-      <div class="footer-info">
-        <p>
-          &copy; <span id="displayYear"></span> All Rights Reserved By
-          <a href="#">Brooks</a><br><br>
-          <!--<a href="https://html.design/">Free Html Templates</a><br><br>
-          &copy; <span id="displayYear"></span> Distributed By
-          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>-->
-        </p>
-      </div>
-    </div>
-  </footer>
+  <footer id="footer-placeholder"></footer>
   <!-- footer section -->
 
   <!-- jQery -->
@@ -885,7 +764,43 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
-
+  <script>  
+  // 使用一個通用的異步載入函數
+  function loadHtml(url, targetElement, typeid) {
+      fetch(url)
+          .then(response => {
+              if (!response.ok) {
+                  // 檢查是否是 404 錯誤，提供更明確的訊息
+                  throw new Error(`無法載入 ${url} (狀態碼: ${response.status})`);
+              }
+              return response.text();
+          })
+          .then(html => {
+              // 針對 <head> 內容，使用 insertAdjacentHTML 確保內容被追加而不是替換
+              if (targetElement === document.head) {
+                  targetElement.insertAdjacentHTML('beforeend', html);
+              } else {
+                  // 對於 <footer> 和 <nav> 內容，使用 innerHTML 替換佔位符的內容
+                  targetElement.innerHTML = html;
+              }
+              const activeItem = document.getElementById(typeid);
+              activeItem.classList.add('active');
+          })
+          .catch(error => {
+              console.error(`載入 ${url} 失敗:`, error);
+          });
+  }
+  
+  // 載入 HEAD 內容 (使用 document.head 作為目標)
+  // 注意：這會是非同步載入，可能會導致樣式或資源延遲
+  loadHtml('head.html', document.getElementById('head-placeholder'), 'indexhtml'); 
+  
+  // 載入 NAVBAR 內容
+  loadHtml('navbar.html', document.getElementById('navbar-placeholder'), 'indexhtml');
+  
+  // 載入 FOOTER 內容
+  loadHtml('footer.html', document.getElementById('footer-placeholder'), 'indexhtml');
+  </script>
 </body>
 
 </html>
