@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<!-- head section123 -->
+<!-- head section -->
 <head id="head-placeholder"></head>
 <!-- head section -->
 
@@ -270,8 +270,8 @@ function loadHtml(url, targetElement, typeid) {
                 // 對於 <footer> 和 <nav> 內容，使用 innerHTML 替換佔位符的內容
                 targetElement.innerHTML = html;
             }
-            const activeItem = document.getElementById(typeid);
-            activeItem.classList.add('active');
+            //const activeItem = document.getElementById(typeid);
+            //activeItem.classList.add('active');
         })
         .catch(error => {
             console.error(`載入 ${url} 失敗:`, error);
