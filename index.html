@@ -898,13 +898,6 @@
               console.error(`載入 ${url} 失敗:`, error);
           });
   }
-  
-  // 載入 HEAD 內容 (使用 document.head 作為目標)
-  // 注意：這會是非同步載入，可能會導致樣式或資源延遲
-  loadHtml('head.html', document.getElementById('head-placeholder'), 'indexhtml'); 
-  
-  // 載入 NAVBAR 內容
-  loadHtml('navbar.html', document.getElementById('navbar-placeholder'), 'indexhtml');
   </script>
 </body>
 
