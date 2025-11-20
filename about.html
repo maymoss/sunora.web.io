@@ -173,24 +173,6 @@
   </script>
   <!-- End Google Map -->
 <script>
-// 1. 確保腳註內容檔案路徑正確
-const footerUrl = 'footer.html'; 
-
-// 2. 使用 fetch API 載入內容
-fetch(footerUrl)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('無法載入 footer.html');
-        }
-        return response.text();
-    })
-    .then(html => {
-        // 3. 將內容插入到 footer-placeholder 容器中
-        document.getElementById('footer-placeholder').innerHTML = html;
-    })
-    .catch(error => {
-        console.error('載入腳註失敗:', error);
-    });
   
 const headUrl = 'head.html'; 
 
@@ -205,6 +187,25 @@ fetch(headUrl)
     .then(html => {
         // 3. 將內容插入到 footer-placeholder 容器中
         document.getElementById('head-placeholder').innerHTML = html;
+    })
+    .catch(error => {
+        console.error('載入腳註失敗:', error);
+    });
+  
+// 1. 確保腳註內容檔案路徑正確
+const footerUrl = 'footer.html'; 
+
+// 2. 使用 fetch API 載入內容
+fetch(footerUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('無法載入 footer.html');
+        }
+        return response.text();
+    })
+    .then(html => {
+        // 3. 將內容插入到 footer-placeholder 容器中
+        document.getElementById('footer-placeholder').innerHTML = html;
     })
     .catch(error => {
         console.error('載入腳註失敗:', error);
