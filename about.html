@@ -66,8 +66,10 @@ function loadHtml(url, targetElement, typeid) {
                 // 對於 <footer> 和 <nav> 內容，使用 innerHTML 替換佔位符的內容
                 targetElement.innerHTML = html;
             }
-            const activeItem = document.getElementById(typeid);
-            activeItem.classList.add('active');
+            if(typeid=='C'){
+              const activeItem = document.getElementById('abouthtml');
+              activeItem.classList.add('active');  
+            }            
         })
         .catch(error => {
             console.error(`載入 ${url} 失敗:`, error);
@@ -76,13 +78,13 @@ function loadHtml(url, targetElement, typeid) {
 
 // 載入 HEAD 內容 (使用 document.head 作為目標)
 // 注意：這會是非同步載入，可能會導致樣式或資源延遲
-loadHtml('head.html', document.getElementById('head-placeholder'), 'abouthtml'); 
+loadHtml('head.html', document.getElementById('head-placeholder'), 'A'); 
 
 // 載入 NAVBAR 內容
-loadHtml('header.html', document.getElementById('header-placeholder'), 'abouthtml');
+loadHtml('header.html', document.getElementById('header-placeholder'), 'B');
 
 // 載入 FOOTER 內容
-loadHtml('footer.html', document.getElementById('footer-placeholder'), 'abouthtml');
+loadHtml('footer.html', document.getElementById('footer-placeholder'), 'C');
 </script>
 </body>
 
