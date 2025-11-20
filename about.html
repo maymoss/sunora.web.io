@@ -164,7 +164,7 @@
   <!-- End Google Map -->
 <script>  
 // 使用一個通用的異步載入函數
-function loadHtml(url, targetElement) {
+function loadHtml(url, targetElement, typeid) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -181,6 +181,8 @@ function loadHtml(url, targetElement) {
                 // 對於 <footer> 和 <nav> 內容，使用 innerHTML 替換佔位符的內容
                 targetElement.innerHTML = html;
             }
+            const activeItem = document.getElementById(typeid);
+            activeItem.classList.add('active');
         })
         .catch(error => {
             console.error(`載入 ${url} 失敗:`, error);
@@ -189,13 +191,13 @@ function loadHtml(url, targetElement) {
 
 // 載入 HEAD 內容 (使用 document.head 作為目標)
 // 注意：這會是非同步載入，可能會導致樣式或資源延遲
-loadHtml('head.html', document.getElementById('head-placeholder')); 
+loadHtml('head.html', document.getElementById('head-placeholder'), 'abouthtml'); 
 
 // 載入 NAVBAR 內容
-loadHtml('navbar.html', document.getElementById('navbar-placeholder'));
+loadHtml('navbar.html', document.getElementById('navbar-placeholder'), 'abouthtml');
 
 // 載入 FOOTER 內容
-loadHtml('footer.html', document.getElementById('footer-placeholder'));
+loadHtml('footer.html', document.getElementById('footer-placeholder'), 'abouthtml');
 </script>
 </body>
 
