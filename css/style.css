@@ -147,14 +147,11 @@ a:focus {
   padding-left: 25px;
 }
 
-.navbar-brand {
-  font-family: 'Dancing Script', cursive;
-}
+
 
 .navbar-brand span {
   font-weight: bold;
-  font-size: 32px;
-  color: #ffffff;
+  color: #febd59;
 }
 
 .custom_nav-container {
@@ -1050,6 +1047,36 @@ a:focus {
     /* B. 降低圖片最大高度，讓圖片在手機上等比例縮小 */
     .logo-carousel .item img {
         max-height: 350px; /* 手機最大高度降為 350px */
+    }
+}
+
+.company-name {
+    /* 使用 flex 佈局確保圖片和文字完美對齊 */
+    display: flex;
+    align-items: center; /* 垂直居中對齊 */
+    gap: 10px; /* 設定圖片和文字之間的間距 */
+
+    /* 使用 clamp(最小值, 響應式值, 最大值) 設定字體大小 */
+    /* 這裡設定字體大小在 16px 到 24px 之間，並以 2.2vw 作為響應式基準 */
+    font-size: clamp(16px, 2.2vw, 24px); 
+    
+    /* 確保在較小的 navbar 上文字不會被擠壓 */
+    white-space: nowrap; 
+    
+    /* 由於 Bootstrap 的 .navbar-brand 已經控制了整體佈局，這裡只需專注於字體和對齊 */
+}
+
+/* 由於您的圖片已經設定了固定的 50x50 像素，如果您希望它保持固定大小，則無需修改圖片 CSS。 */
+/* 如果您希望圖片在小螢幕上也稍微縮小：*/
+.company-name img {
+    width: clamp(30px, 5vw, 50px);
+    height: auto; 
+}
+
+/* 針對較小的裝置，您可能需要調整 vw 比例： */
+@media (max-width: 600px) {
+    .company-name {
+        font-size: 3vw; /* 在小螢幕上可以稍微放大比例 */
     }
 }
 /*# sourceMappingURL=style.css.map */
