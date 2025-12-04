@@ -109,14 +109,14 @@ a:focus {
   width: 100%;
   height: 100%;
 }
-
+/*
 .bg-box img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-
+*/
 .sub_page .hero_area {
   min-height: auto;
 }
@@ -1003,5 +1003,53 @@ a:focus {
 
 .footer_section .footer-info p a {
   color: inherit;
+}
+
+/* 1. 設定容器最小高度 (作為跑馬燈區域的垂直參考空間) */
+.offer_container,
+.logo-carousel {
+    min-height: 550px; /* 容器與跑馬燈的整體最小高度 */
+}
+
+/* 2. 應用 Flexbox 實現垂直置中，並禁用其水平置中 */
+.logo-carousel .item {
+    height: 100%; 
+    display: flex; 
+    
+}
+
+/* 3. 圖片本身的尺寸、高度限制與水平置中 (關鍵修正點) */
+.logo-carousel .item img {
+    /* 響應式縮放設定：確保圖片能隨容器縮小 */
+    max-width: 100%; 
+    width: auto;     
+    
+    /* 保持比例，避免圖片被拉伸變形 */
+    height: auto;    
+    max-height: 550px; /* 桌面螢幕的最大高度限制 */
+
+    /* **NEW: 重新導入最可靠的水平置中方式** */
+    display: block; /* 確保圖片是區塊元素才能使用 margin: auto */
+    margin: 0 auto; /* NEW: 水平置中 */
+    
+    /* 保持圖片比例與適配設定 */
+    -o-object-fit: cover; 
+    object-fit: cover; 
+}
+
+
+/* 4. 響應式調整 (針對手機和平板等小於 768px 的螢幕) */
+@media (max-width: 768px) {
+    
+    /* A. 同步降低容器和跑馬燈的高度，適應手機螢幕 */
+    .offer_container,
+    .logo-carousel { 
+        min-height: 350px; /* 手機最小高度降為 350px */
+    }
+    
+    /* B. 降低圖片最大高度，讓圖片在手機上等比例縮小 */
+    .logo-carousel .item img {
+        max-height: 350px; /* 手機最大高度降為 350px */
+    }
 }
 /*# sourceMappingURL=style.css.map */
