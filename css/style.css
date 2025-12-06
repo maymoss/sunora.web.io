@@ -1079,4 +1079,8 @@ a:focus {
         font-size: 3vw; /* 在小螢幕上可以稍微放大比例 */
     }
 }
+.aboutcompany-name {
+	font-weight: bold;
+    color: #febd59;
+}
 /*# sourceMappingURL=style.css.map */
