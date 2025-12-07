@@ -115,7 +115,12 @@
             <input type="text" class="form-control" id="nhlDeduction" readonly value="0">
         </div>
     </div>
-    
+    <div class="form-group row mb-2">
+            <label class="col-sm-4 col-form-label text-warning">營業稅額 (5%)</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="vatAmountDisplay" readonly value="0">
+            </div>
+        </div>
     <hr>
 
     <div class="form-group row mb-2">
@@ -225,6 +230,8 @@
     const currentRatesDisplay = document.getElementById('currentRatesDisplay');
     const taxRateDisplay = document.getElementById('taxRateDisplay');
     const nhlRateDisplay = document.getElementById('nhlRateDisplay');
+	// 📢 新增：營業稅額顯示元素
+	const vatAmountDisplay = document.getElementById('vatAmountDisplay');
 
     // 新增房東表單元素
     const lessorNameNew = document.getElementById('lessorNameNew');
@@ -360,50 +367,61 @@
      */
     // 接收 finalGrossRent 和 actualUntaxedRent
     function calculateRentDeduction(finalGrossRent, actualUntaxedRent, lessor) {
-        if (!lessor) return;
+		if (!lessor) return;
 
-        const grossRent = finalGrossRent; 
-        
-        let taxDeduction = 0;
-        let nhlDeduction = 0;
-        let totalDeduction = 0;
-        let netRent = grossRent;
-        
-        // 獲取當前房東的費率 (以下計算邏輯不變)
-        const currentTaxRate = lessor.taxRate;
-        const currentNhlRate = lessor.nhlRate;
+		const grossRent = finalGrossRent; // 含稅總租金
+		
+		let taxDeduction = 0;
+		let nhlDeduction = 0;
+		let totalDeduction = 0;
+		let netRent = grossRent;
+		
+		// 📢 新增：計算營業稅額
+		// 營業稅額 = 未稅金額 * 5%
+		const vatAmount = actualUntaxedRent * VAT_RATE;
+		const roundedVatAmount = Math.round(vatAmount); // 四捨五入到整數元
+		
+		// 獲取當前房東的費率 (以下計算邏輯不變)
+		const currentTaxRate = lessor.taxRate;
+		const currentNhlRate = lessor.nhlRate;
 
-        // 判斷是否進行扣繳 (只有免扣繳選項才不執行)
-        const isExempt = lessor.id === 'default_exempt' || grossRent <= DEDUCTION_THRESHOLD;
+		// 判斷是否進行扣繳 (只有免扣繳選項才不執行)
+		// 注意：營業稅 (VAT) 總是根據未稅金額計算，不論是否超過 20,000
+		const isExempt = lessor.id === 'default_exempt' || grossRent <= DEDUCTION_THRESHOLD;
 
-        if (!isExempt) {
-            
-            // 1. 計算所得稅扣繳
-            const baseTax = grossRent * currentTaxRate;
-            taxDeduction = Math.round(baseTax); 
-            
-            // 2. 計算二代健保補充保費
-            const baseNhl = grossRent * currentNhlRate;
-            nhlDeduction = Math.round(baseNhl); 
-                
-            // 3. 計算總扣繳金額
-            totalDeduction = taxDeduction + nhlDeduction;
-            
-            // 4. 計算房東淨拿金額
-            netRent = grossRent - totalDeduction;
+		if (!isExempt) {
+			
+			// 1. 計算所得稅扣繳
+			const baseTax = grossRent * currentTaxRate;
+			taxDeduction = Math.round(baseTax); 
+			
+			// 2. 計算二代健保補充保費
+			// 這裡採用了前一個回答中的「以含稅總額為基準」的修正版本 (通常這是稅法標準)
+			const baseNhl = grossRent * currentNhlRate; 
+			nhlDeduction = Math.round(baseNhl); 
+				
+			// 3. 計算總扣繳金額 (邏輯不變)
+			totalDeduction = taxDeduction + nhlDeduction;
+			
+			// 4. 計算房東淨拿金額 (邏輯不變)
+			netRent = grossRent - totalDeduction;
 
-        }
+		}
 
-        // 5. 更新 UI 顯示 (使用 formatNumber 進行格式化)
-        taxDeductionInput.value = formatNumber(taxDeduction);
-        nhlDeductionInput.value = formatNumber(nhlDeduction);
-        totalDeductionInput.value = formatNumber(totalDeduction);
-        netRentInput.value = formatNumber(netRent);
-        
-        // 📢 6. 輸出總計金額結果
-        actualUntaxedRentDisplay.value = formatNumber(actualUntaxedRent);
-        finalGrossRentDisplay.value = formatNumber(finalGrossRent);
-    }
+		// 5. 更新 UI 顯示 (使用 formatNumber 進行格式化)
+		taxDeductionInput.value = formatNumber(taxDeduction);
+		nhlDeductionInput.value = formatNumber(nhlDeduction);
+		
+		// 📢 輸出營業稅額
+		vatAmountDisplay.value = formatNumber(roundedVatAmount); // 輸出營業稅額
+
+		totalDeductionInput.value = formatNumber(totalDeduction);
+		netRentInput.value = formatNumber(netRent);
+		
+		// 6. 輸出總計金額結果
+		actualUntaxedRentDisplay.value = formatNumber(actualUntaxedRent);
+		finalGrossRentDisplay.value = formatNumber(finalGrossRent);
+	}
 
     /**
      * 處理新增房東並儲存到前端名單
