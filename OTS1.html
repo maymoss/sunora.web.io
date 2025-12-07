@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<html>
+
+<!-- head section -->
+<head id="head-placeholder"></head>
+<!-- head section -->
+
+<body class="sub_page">
+  <!-- header section -->
+  <div class="hero_area" id="header-placeholder"></div>
+
+  <!-- about section -->
+<style>
+.detail-box h2 {
+    text-align: center; /* 將 h2 內的文字內容水平置中 */
+}
+/* 設定自動補齊容器，以便子元素可以絕對定位 (通常是 relative) */
+.autocomplete-container {
+    position: relative; 
+}
+
+/* 建議列表的樣式，使其浮動在輸入框下方 */
+.suggestions-list {
+    position: absolute;
+    z-index: 1000; /* 確保它浮動在其他元素上方 */
+    width: calc(100% - 30px); /* 寬度配合輸入框 */
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    top: 100%; /* 從輸入框底部開始顯示 */
+}
+
+/* 建議列表項目的樣式 */
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+	
+	/* 確保字體顏色為黑色 */
+    color: #000000; /* 黑色 */
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+	
+	/* 確保字體顏色為黑色 */
+    color: #000000; /* 黑色 */
+}
+</style>
+  <section class="about_section layout_padding">
+    <div class="container  ">
+
+      <div class="row">
+
+        <div class="col-md-12">
+          <div class="detail-box">
+    <div class="">
+        <h2>
+            <span class="aboutcompany-name">
+                手開發票小幫手
+            </span>
+        </h2>
+    </div>
+    
+    <div class="btn-group mb-4" role="group" id="invoiceTypeToggle">
+        <button type="button" class="btn btn-primary active" data-type="triple">三聯式發票</button>
+        <button type="button" class="btn btn-secondary" data-type="double">二聯式發票</button>
+    </div>
+
+    <div id="tripleInvoiceFields" class="form-group-section">
+    <div class="form-group row mb-2">
+        <label for="buyer" class="col-sm-3 col-form-label">買受人</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="buyer">
+        </div>
+    </div>
+    
+    <div class="form-group row mb-2">
+        <label for="uniformID" class="col-sm-3 col-form-label">統一編號</label>
+        <div class="col-sm-9 autocomplete-container">
+            <input type="text" class="form-control" id="uniformID">
+            <div id="uniformIDSuggestions" class="suggestions-list"></div> </div>
+    </div>
+    
+    <div class="form-group row mb-4">
+        <label for="companyName" class="col-sm-3 col-form-label">公司名稱 (抬頭)</label>
+        <div class="col-sm-9 autocomplete-container">
+            <input type="text" class="form-control" id="companyName">
+            <div id="companyNameSuggestions" class="suggestions-list"></div> </div>
+    </div>
+</div>
+    
+    <div class="form-group-section mt-4 border-top pt-3">
+        <h3>金額計算</h3>
+
+        <div class="form-group row mb-2">
+            <label for="taxRate" class="col-sm-3 col-form-label">稅率 (%)</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="taxRate">
+                    <option value="0.05" selected>5% (預設)</option>
+                    <option value="0">0% (零稅率)</option>
+                    <option value="0.01">1%</option>
+                    <option value="0.02">2%</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group row mb-2">
+            <label for="totalAmount" class="col-sm-3 col-form-label font-weight-bold text-danger">含稅總價 (金額)</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" id="totalAmount" placeholder="輸入含稅總價">
+            </div>
+        </div>
+        
+        <div class="form-group row mb-2">
+            <label class="col-sm-3 col-form-label">未稅價</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="untaxedPrice" readonly value="0">
+            </div>
+        </div>
+        <div class="form-group row mb-2">
+            <label class="col-sm-3 col-form-label">營業稅額</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="taxAmount" readonly value="0">
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+
+  <!-- footer section -->
+  <footer class="footer_section" id="footer-placeholder"></footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script src="js/bootstrap.js"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+
+<!-- custom js -->
+	<script>
+	var $grid2='menuhtml';
+	// 獲取所有相關 DOM 元素
+    const toggleButtons = document.querySelectorAll('#invoiceTypeToggle button');
+    const tripleFields = document.getElementById('tripleInvoiceFields');
+    const totalAmountInput = document.getElementById('totalAmount');
+    const taxRateSelect = document.getElementById('taxRate');
+    const untaxedPriceInput = document.getElementById('untaxedPrice');
+    const taxAmountInput = document.getElementById('taxAmount');
+
+    // --- 1. 發票類型切換邏輯 (維持不變) ---
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const type = this.getAttribute('data-type');
+            
+            // 處理按鈕樣式切換
+            toggleButtons.forEach(btn => {
+                btn.classList.remove('active', 'btn-primary');
+                btn.classList.add('btn-secondary');
+            });
+            this.classList.add('active', 'btn-primary');
+            this.classList.remove('btn-secondary');
+
+            // 處理欄位顯示/隱藏
+            if (type === 'triple') {
+                tripleFields.style.display = 'block';
+            } else {
+                tripleFields.style.display = 'none';
+            }
+        });
+    });
+
+    // --- 2. 金額自動計算邏輯 (已修改為整數計算) ---
+
+    function calculateInvoice() {
+        // 獲取輸入值 (強制轉換為數字)
+        const totalAmount = parseFloat(totalAmountInput.value) || 0;
+        const taxRate = parseFloat(taxRateSelect.value) || 0; 
+        
+        let untaxedPrice = 0;
+        let taxAmount = 0;
+
+        if (totalAmount > 0 && taxRate > 0) {
+            // A. 計算基礎未稅價 (帶有小數點)
+            const baseUntaxed = totalAmount / (1 + taxRate);
+            
+            // B. 計算營業稅額 (帶有小數點)
+            const baseTax = baseUntaxed * taxRate;
+
+            // C. 台灣實務：營業稅額四捨五入到整數元 (元以下捨去/進位)
+            // 使用 Math.round() 進行四捨五入
+            taxAmount = Math.round(baseTax); 
+            
+            // D. 倒推未稅價：使用 含稅總價 - 經四捨五入後的營業稅額
+            // 未稅價也將是整數 (如果含稅總價是整數的話)
+            untaxedPrice = totalAmount - taxAmount;
+
+        } else if (taxRate === 0) {
+            // 零稅率 (0%) 情況
+            untaxedPrice = totalAmount;
+            taxAmount = 0;
+        }
+
+
+        // 格式化輸出：確保輸出的是整數 (不帶小數點)
+        const formatInteger = (num) => {
+             // toLocaleString 可以用來格式化千分位，並確保是整數
+            return Math.round(num).toLocaleString('zh-TW');
+        };
+
+        untaxedPriceInput.value = formatInteger(untaxedPrice);
+        taxAmountInput.value = formatInteger(taxAmount);
+        
+        // 驗證公式：未稅價 + 營業稅額 必須等於 含稅總價
+        console.log(`[驗證] 未稅價 (${untaxedPrice}) + 稅額 (${taxAmount}) = ${untaxedPrice + taxAmount}. 總價: ${totalAmount}.`);
+    }
+
+    // 監聽輸入欄位和稅率選擇器的變化
+    totalAmountInput.addEventListener('input', calculateInvoice);
+    taxRateSelect.addEventListener('change', calculateInvoice);
+
+    // 初始計算
+    calculateInvoice();
+	// =========================================================
+    // 📢 新增：公司行號查詢模擬資料 (未來替換為 AJAX 呼叫)
+    // =========================================================
+    const MOCK_COMPANIES = [
+        { id: "12345678", name: "森曜永續管理顧問有限公司", address: "台中市西區" },
+        { id: "87654321", name: "日耀能源開發股份有限公司", address: "台北市信義區" },
+        { id: "98765432", name: "綠光環保科技股份有限公司", address: "新竹市東區" },
+        { id: "11223344", name: "智慧生活數位有限公司", address: "高雄市三民區" },
+        { id: "44332211", name: "統一超商股份有限公司", address: "台北市" }
+    ];
+
+    // =========================================================
+    // 📢 新增：Autocomplete 邏輯
+    // =========================================================
+    const uniformIDInput = document.getElementById('uniformID');
+    const companyNameInput = document.getElementById('companyName');
+    const uniformIDSuggestions = document.getElementById('uniformIDSuggestions');
+    const companyNameSuggestions = document.getElementById('companyNameSuggestions');
+
+    function filterCompanies(query, fieldType) {
+        if (!query || query.length < 2) { // 輸入至少 2 個字元/數字才開始搜尋
+            return [];
+        }
+
+        const lowerCaseQuery = query.toLowerCase();
+
+        return MOCK_COMPANIES.filter(company => {
+            if (fieldType === 'id') {
+                return company.id.includes(lowerCaseQuery);
+            } else if (fieldType === 'name') {
+                return company.name.toLowerCase().includes(lowerCaseQuery);
+            }
+            return false;
+        });
+    }
+
+    function renderSuggestions(inputElement, suggestionsContainer, filteredResults) {
+        // 清除舊的建議
+        suggestionsContainer.innerHTML = ''; 
+
+        if (filteredResults.length === 0) {
+            return;
+        }
+
+        filteredResults.forEach(company => {
+            const item = document.createElement('div');
+            item.classList.add('suggestion-item');
+            
+            // 顯示統編和名稱
+            item.innerHTML = `<strong>${company.id}</strong> - ${company.name}`;
+            
+            // 點擊項目時，填入對應的輸入框
+            item.addEventListener('click', () => {
+                uniformIDInput.value = company.id;
+                companyNameInput.value = company.name;
+                suggestionsContainer.innerHTML = ''; // 清除列表
+            });
+
+            suggestionsContainer.appendChild(item);
+        });
+    }
+
+    // --- 統編輸入監聽 ---
+    uniformIDInput.addEventListener('input', (e) => {
+        // 在未來，這裡將替換成 AJAX 呼叫到後端 API，而不是 MOCK_COMPANIES
+        const results = filterCompanies(e.target.value, 'id'); 
+        renderSuggestions(uniformIDInput, uniformIDSuggestions, results);
+        // 確保公司名稱的建議列表是關閉的
+        companyNameSuggestions.innerHTML = ''; 
+    });
+
+    // --- 公司名稱輸入監聽 ---
+    companyNameInput.addEventListener('input', (e) => {
+        // 在未來，這裡將替換成 AJAX 呼叫到後端 API
+        const results = filterCompanies(e.target.value, 'name'); 
+        renderSuggestions(companyNameInput, companyNameSuggestions, results);
+        // 確保統編的建議列表是關閉的
+        uniformIDSuggestions.innerHTML = '';
+    });
+    
+    // --- 點擊頁面其他地方時隱藏建議列表 ---
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.autocomplete-container')) {
+            uniformIDSuggestions.innerHTML = '';
+            companyNameSuggestions.innerHTML = '';
+        }
+    });
+	</script>
+<script src="js/custom.js"></script>
+</body>
+
+</html>
