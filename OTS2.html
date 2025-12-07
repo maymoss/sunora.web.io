@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html>
+<html>
+
+<!-- head section -->
+<head id="head-placeholder"></head>
+<!-- head section -->
+
+<body class="sub_page">
+  <!-- header section -->
+  <div class="hero_area" id="header-placeholder"></div>
+
+  <!-- about section -->
+<style>
+.detail-box h2 {
+    text-align: center; /* 將 h2 內的文字內容水平置中 */
+}
+</style>
+  <section class="about_section layout_padding">
+    <div class="container  ">
+
+      <div class="row">
+
+        <div class="col-md-12">
+<div class="detail-box">
+    <div class="title-container">
+        <h2 style="text-align: center;">
+            <span class="aboutcompany-name">
+                租金扣繳計算機
+            </span>
+        </h2>
+    </div>
+
+    <div id="settings" class="mt-4 p-4 rounded mb-4">
+        <!--
+		<h4>📝 房東名單與費率設定</h4>
+        
+        <button type="button" class="btn btn-sm btn-info mb-3" data-toggle="collapse" data-target="#addLessorForm" aria-expanded="false" aria-controls="addLessorForm">
+            新增/自訂房東費率
+        </button>
+        -->
+        <div class="collapse" id="addLessorForm">
+            <div class="card card-body">
+                <div class="form-group row mb-2">
+                    <label for="lessorNameNew" class="col-sm-4 col-form-label">房東名稱 (自訂)</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control form-control-sm" id="lessorNameNew" placeholder="例如: 張三 (個人)">
+                    </div>
+                </div>
+                <div class="form-group row mb-2">
+                    <label for="taxRateNew" class="col-sm-4 col-form-label">所得稅扣繳率 (%)</label>
+                    <div class="col-sm-8">
+                        <input type="number" step="0.01" class="form-control form-control-sm" id="taxRateNew" value="10" min="0" max="100">
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label for="nhlRateNew" class="col-sm-4 col-form-label">二代健保費率 (%)</label>
+                    <div class="col-sm-8">
+                        <input type="number" step="0.01" class="form-control form-control-sm" id="nhlRateNew" value="2.11" min="0" max="100">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success btn-sm" id="addLessorBtn">儲存房東</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="rentDeductionCalculator" class="p-4 border rounded shadow-sm">
+    
+        <div class="form-group row mb-4">
+        <label for="lessorSelect" class="col-sm-4 col-form-label font-weight-bold text-success">選擇房東 / 預設情境</label>
+        <div class="col-sm-8">
+            <select class="form-control" id="lessorSelect"></select>
+            <small class="form-text text-muted" id="currentRatesDisplay"></small>
+        </div>
+    </div>
+
+        <div class="form-group row mb-3">
+        <label class="col-sm-4 col-form-label font-weight-bold">輸入金額模式</label>
+        <div class="col-sm-8">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary active" id="untaxedModeBtn">
+                    <input type="radio" name="inputMode" id="inputModeUntaxed" autocomplete="off" checked> 未稅租金 (預設)
+                </label>
+                <label class="btn btn-secondary" id="taxedModeBtn">
+                    <input type="radio" name="inputMode" id="inputModeTaxed" autocomplete="off"> 含稅總租金
+                </label>
+            </div>
+        </div>
+    </div>
+
+        <div class="form-group row mb-3">
+        <label for="grossRent" class="col-sm-4 col-form-label font-weight-bold" id="rentInputLabel">
+            每月實際租金 (未稅)
+        </label>
+        <div class="col-sm-8">
+            <input type="number" class="form-control" id="grossRent" placeholder="輸入租金金額" value="0">
+            <small class="form-text text-info" id="rentInputHelp">此為不含營業稅的價格。扣繳基準為 $ 含稅總額 $。</small>
+        </div>
+    </div>
+
+    <input type="hidden" id="calculatedGrossRent" value="0">
+    <input type="hidden" id="calculatedUntaxedRent" value="0">
+
+    <h3 class="mt-4">扣繳計算結果 (四捨五入到整數元)</h3>
+    
+        <div class="form-group row mb-2">
+        <label class="col-sm-4 col-form-label text-primary">應扣繳所得稅 (<span id="taxRateDisplay">10</span>%)</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="taxDeduction" readonly value="0">
+        </div>
+    </div>
+    
+    <div class="form-group row mb-2">
+        <label class="col-sm-4 col-form-label text-danger">二代健保補充保費 (<span id="nhlRateDisplay">2.11</span>%)</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="nhlDeduction" readonly value="0">
+        </div>
+    </div>
+    
+    <hr>
+
+    <div class="form-group row mb-2">
+        <label class="col-sm-4 col-form-label font-weight-bold">計算基準：含稅總租金</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control bg-light" id="finalGrossRentDisplay" readonly value="0">
+        </div>
+    </div>
+
+        <div class="form-group row mb-2">
+        <label class="col-sm-4 col-form-label font-weight-bold">實際支付租金（未稅）</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control bg-light" id="actualUntaxedRentDisplay" readonly value="0">
+        </div>
+    </div>
+    
+    <div class="form-group row mb-2">
+        <label class="col-sm-4 col-form-label font-weight-bold">房東實際淨拿租金</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="netRent" readonly value="0">
+        </div>
+    </div>
+    
+    <div class="form-group row mb-2">
+        <label class="col-sm-4 col-form-label font-weight-bold">總扣繳金額</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="totalDeduction" readonly value="0">
+        </div>
+    </div>
+</div>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+
+  <!-- footer section -->
+  <footer class="footer_section" id="footer-placeholder"></footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script src="js/bootstrap.js"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+
+<!-- custom js -->
+	<script>
+	var $grid2='menuhtml';
+    // ----------------------------------------------------
+    // 租金扣繳計算機 JavaScript 邏輯
+    // ----------------------------------------------------
+
+    // 預設稅務參數
+    const DEFAULT_TAX_RATE = 0.10; // 所得稅扣繳率 10%
+    const DEFAULT_NHL_RATE = 0.0211; // 二代健保補充保費率 2.11%
+    const DEDUCTION_THRESHOLD = 20000; // 扣繳起徵點 NT$20,000
+    const VAT_RATE = 0.05; // 營業稅率 5%
+
+    // 房東名單數據結構 (前端模擬儲存)
+    let lessors = [
+        { 
+            id: 'default_individual', 
+            name: '預設：個人房東 (稅10% / 健保2.11%)', 
+            taxRate: DEFAULT_TAX_RATE, 
+            nhlRate: DEFAULT_NHL_RATE, 
+            isIndividual: true 
+        },
+        { 
+            id: 'default_company', 
+            name: '預設：公司/法人房東 (稅10% / 健保0%)', 
+            taxRate: DEFAULT_TAX_RATE, 
+            nhlRate: 0, 
+            isIndividual: false 
+        },
+        { 
+            id: 'default_exempt', 
+            name: '預設：租金未滿 20,000 (免扣繳)', 
+            taxRate: 0, 
+            nhlRate: 0, 
+            isIndividual: false 
+        },
+    ];
+
+    // 獲取所有 DOM 元素
+    const grossRentInput = document.getElementById('grossRent');
+    const lessorSelect = document.getElementById('lessorSelect');
+    const taxDeductionInput = document.getElementById('taxDeduction');
+    const nhlDeductionInput = document.getElementById('nhlDeduction');
+    const netRentInput = document.getElementById('netRent');
+    const totalDeductionInput = document.getElementById('totalDeduction');
+    const currentRatesDisplay = document.getElementById('currentRatesDisplay');
+    const taxRateDisplay = document.getElementById('taxRateDisplay');
+    const nhlRateDisplay = document.getElementById('nhlRateDisplay');
+
+    // 新增房東表單元素
+    const lessorNameNew = document.getElementById('lessorNameNew');
+    const taxRateNew = document.getElementById('taxRateNew');
+    const nhlRateNew = document.getElementById('nhlRateNew');
+    const addLessorBtn = document.getElementById('addLessorBtn');
+
+    // 含稅/未稅切換和計算元素
+    const rentInputLabel = document.getElementById('rentInputLabel');
+    const rentInputHelp = document.getElementById('rentInputHelp');
+    const taxedModeBtn = document.getElementById('taxedModeBtn');
+    const untaxedModeBtn = document.getElementById('untaxedModeBtn');
+    const calculatedGrossRentInput = document.getElementById('calculatedGrossRent');
+    const calculatedUntaxedRentInput = document.getElementById('calculatedUntaxedRent');
+    
+    // 📢 新增結果顯示元素
+    const actualUntaxedRentDisplay = document.getElementById('actualUntaxedRentDisplay');
+    const finalGrossRentDisplay = document.getElementById('finalGrossRentDisplay');
+
+    let currentInputMode = 'untaxed'; // 追蹤當前模式 ('untaxed' 或 'taxed')
+
+
+    /**
+     * 格式化數字為千分位且取整
+     * @param {number} num 
+     * @returns {string}
+     */
+    const formatNumber = (num) => Math.round(num).toLocaleString('zh-TW');
+
+    /**
+     * 填充房東選擇器
+     */
+    function populateLessorSelect() {
+        lessorSelect.innerHTML = '';
+        lessors.forEach((lessor) => {
+            const option = document.createElement('option');
+            option.value = lessor.id;
+            option.textContent = lessor.name;
+            lessorSelect.appendChild(option);
+        });
+        // 預設選中第一個，並觸發顯示
+        lessorSelect.value = lessors[0].id;
+        updateRateDisplay();
+    }
+
+    /**
+     * 更新目前選中房東的費率顯示
+     */
+    function updateRateDisplay() {
+        const selectedLessorId = lessorSelect.value;
+        const selectedLessor = lessors.find(l => l.id === selectedLessorId);
+        
+        if (selectedLessor) {
+            // 顯示在標籤旁
+            taxRateDisplay.textContent = (selectedLessor.taxRate * 100).toFixed(2);
+            nhlRateDisplay.textContent = (selectedLessor.nhlRate * 100).toFixed(2);
+            
+            // 顯示在說明文字中
+            currentRatesDisplay.textContent = `當前設定: 所得稅 ${(selectedLessor.taxRate * 100).toFixed(2)}%, 健保費率 ${(selectedLessor.nhlRate * 100).toFixed(2)}%`;
+        }
+    }
+
+    // ----------------------------------------------------
+    // 📢 新增：切換輸入模式邏輯
+    // ----------------------------------------------------
+    function updateInputMode(mode) {
+		currentInputMode = mode;
+		
+		// 樣式切換的 Class 名稱列表
+		const ACTIVE_CLASSES = ['active', 'btn-primary']; // 🔔 修正: 使用陣列儲存多個 class
+		const INACTIVE_CLASS = 'btn-secondary';
+
+		// 獲取當前模式的按鈕
+		const currentBtn = mode === 'untaxed' ? untaxedModeBtn : taxedModeBtn;
+		const otherBtn = mode === 'untaxed' ? taxedModeBtn : untaxedModeBtn;
+		
+		// 設置文字內容
+		if (mode === 'untaxed') {
+			rentInputLabel.textContent = '每月實際租金 (未稅)';
+			rentInputHelp.textContent = '此為不含營業稅的價格。扣繳基準為含稅總額。';
+		} else {
+			rentInputLabel.textContent = '每月實際租金 (含稅總價)';
+			rentInputHelp.textContent = '此為已包含營業稅的價格。';
+		}
+		
+		// 設置按鈕樣式
+		// 1. 移除所有按鈕的 active/primary 樣式，並確保它們有 secondary 樣式
+		currentBtn.classList.remove(INACTIVE_CLASS);
+		otherBtn.classList.remove(...ACTIVE_CLASSES); // 移除舊的 active 樣式
+		otherBtn.classList.add(INACTIVE_CLASS); // 設為非選中樣式
+
+		// 2. 將選中的按鈕設為 active/primary 樣式
+		currentBtn.classList.add(...ACTIVE_CLASSES); // ✅ 修正: 使用展開運算子傳入多個 class
+		
+		// 模式切換後，重新計算
+		calculateGrossRentAndDeduction();
+	}
+
+    // ----------------------------------------------------
+    // 📢 新增：金額換算與總結算函式
+    // ----------------------------------------------------
+    function calculateGrossRentAndDeduction() {
+        const inputValue = parseFloat(grossRentInput.value) || 0;
+        const selectedLessorId = lessorSelect.value;
+        const lessor = lessors.find(l => l.id === selectedLessorId);
+
+        let finalGrossRent;      // 最終含稅總租金 (扣繳計算基準)
+        let actualUntaxedRent;   // 最終未稅租金 (顯示結果)
+
+        if (currentInputMode === 'untaxed') {
+            // 模式：輸入未稅價 (inputValue)
+            actualUntaxedRent = inputValue;
+            // 含稅總價 = 未稅價 * (1 + 5%)
+            finalGrossRent = inputValue * (1 + VAT_RATE);
+            
+        } else {
+            // 模式：輸入含稅總價 (inputValue)
+            finalGrossRent = inputValue;
+            // 未稅價 = 含稅總價 / (1 + 5%)
+            actualUntaxedRent = inputValue / (1 + VAT_RATE);
+        }
+
+        // 將計算出的含稅總價和未稅價存入隱藏欄位
+        calculatedGrossRentInput.value = finalGrossRent;
+        calculatedUntaxedRentInput.value = actualUntaxedRent;
+        
+        // 接著執行扣繳計算
+        calculateRentDeduction(finalGrossRent, actualUntaxedRent, lessor);
+    }
+    
+    /**
+     * 執行租金扣繳計算
+     */
+    // 接收 finalGrossRent 和 actualUntaxedRent
+    function calculateRentDeduction(finalGrossRent, actualUntaxedRent, lessor) {
+        if (!lessor) return;
+
+        const grossRent = finalGrossRent; 
+        
+        let taxDeduction = 0;
+        let nhlDeduction = 0;
+        let totalDeduction = 0;
+        let netRent = grossRent;
+        
+        // 獲取當前房東的費率 (以下計算邏輯不變)
+        const currentTaxRate = lessor.taxRate;
+        const currentNhlRate = lessor.nhlRate;
+
+        // 判斷是否進行扣繳 (只有免扣繳選項才不執行)
+        const isExempt = lessor.id === 'default_exempt' || grossRent <= DEDUCTION_THRESHOLD;
+
+        if (!isExempt) {
+            
+            // 1. 計算所得稅扣繳
+            const baseTax = grossRent * currentTaxRate;
+            taxDeduction = Math.round(baseTax); 
+            
+            // 2. 計算二代健保補充保費
+            const baseNhl = grossRent * currentNhlRate;
+            nhlDeduction = Math.round(baseNhl); 
+                
+            // 3. 計算總扣繳金額
+            totalDeduction = taxDeduction + nhlDeduction;
+            
+            // 4. 計算房東淨拿金額
+            netRent = grossRent - totalDeduction;
+
+        }
+
+        // 5. 更新 UI 顯示 (使用 formatNumber 進行格式化)
+        taxDeductionInput.value = formatNumber(taxDeduction);
+        nhlDeductionInput.value = formatNumber(nhlDeduction);
+        totalDeductionInput.value = formatNumber(totalDeduction);
+        netRentInput.value = formatNumber(netRent);
+        
+        // 📢 6. 輸出總計金額結果
+        actualUntaxedRentDisplay.value = formatNumber(actualUntaxedRent);
+        finalGrossRentDisplay.value = formatNumber(finalGrossRent);
+    }
+
+    /**
+     * 處理新增房東並儲存到前端名單
+     */
+    addLessorBtn.addEventListener('click', () => {
+        const name = lessorNameNew.value.trim();
+        let taxRate = parseFloat(taxRateNew.value) / 100; // 轉換為小數
+        let nhlRate = parseFloat(nhlRateNew.value) / 100; // 轉換為小數
+
+        if (!name) {
+            alert("請輸入房東名稱！");
+            return;
+        }
+        
+        // 確保費率有效
+        if (isNaN(taxRate)) taxRate = 0;
+        if (isNaN(nhlRate)) nhlRate = 0;
+
+        const newLessor = {
+            id: 'custom_' + Date.now(), // 確保 ID 唯一
+            name: `${name} (稅${(taxRate * 100).toFixed(2)}% / 健保${(nhlRate * 100).toFixed(2)}%)`,
+            taxRate: taxRate,
+            nhlRate: nhlRate,
+            isIndividual: nhlRate > 0 // 簡化判斷：有健保費率就當作是個人
+        };
+
+        lessors.push(newLessor);
+        populateLessorSelect(); // 重新載入選擇器
+        
+        // 將新房東設為當前選項
+        lessorSelect.value = newLessor.id;
+        
+        // 清空表單
+        lessorNameNew.value = '';
+        
+        // 觸發計算
+        calculateGrossRentAndDeduction();
+        
+        // 關閉新增表單 (如果使用了 Bootstrap collapse)
+        $('#addLessorForm').collapse('hide'); 
+    });
+
+
+    // ----------------------------------------------------
+    // 頁面啟動與事件監聽
+    // ----------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+        // 初始載入房東名單
+        populateLessorSelect();
+
+        // 初始設定為未稅模式
+        // 注意：這裡必須放在 populateLessorSelect 之後，以確保 DOM 元素存在
+        updateInputMode('untaxed');
+        
+        // 事件監聽：切換輸入模式
+        untaxedModeBtn.addEventListener('click', () => updateInputMode('untaxed'));
+        taxedModeBtn.addEventListener('click', () => updateInputMode('taxed'));
+        
+        // 事件監聽：選擇房東時
+        lessorSelect.addEventListener('change', () => {
+            updateRateDisplay();
+            calculateGrossRentAndDeduction();
+        });
+
+        // 事件監聽：輸入金額時 (改為呼叫新的總結算函式)
+        grossRentInput.addEventListener('input', calculateGrossRentAndDeduction);
+        
+        // 初始計算
+        calculateGrossRentAndDeduction();
+    });
+	</script>
+<script src="js/custom.js"></script>
+</body>
+
+</html>
