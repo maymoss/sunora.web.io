@@ -33,6 +33,8 @@
   <link href="css/style.css?V1.15" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+  <!-- Google Noto Sans TC for nicer Traditional Chinese typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
   /* 合作單位區塊微調：卡片化、置中 logo、響應式欄位、懶加載、hover 動畫 */
   :root{
@@ -56,19 +58,26 @@
     border-radius:10px;
     box-shadow:var(--partner-shadow);
     display:flex;
+    flex-direction:column;      /* 垂直堆疊：logo 上、名稱 下 */
     align-items:center;
     justify-content:center;
-    padding:18px;
-    min-height:150px; /* 固定最小高度，確保卡片高度一致 */
+    gap:10px;                   /* 卡片內上下間距一致 */
+    padding:18px 16px;
+    min-height:170px; /* 固定最小高度以容納名稱 */
     transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
   .partner-card:hover{transform:translateY(-6px);box-shadow:var(--partner-shadow-hover);border-color:var(--partner-accent)}
 
   .partner-logo{max-width:100%;max-height:72px;object-fit:contain;display:block;filter:grayscale(0%);opacity:0.98;background-color:#ffffff;padding:6px;border-radius:8px;box-sizing:border-box}
   /* 可用於個別要放大的 logo（不影響其他 logo） */
   .partner-logo--large{max-height:96px}
+
+  /* 公司名稱樣式：置中、無多餘 margin、較細的字重 */
+  .partner-card label{display:block;width:100%;text-align:center;margin:0}
+  .partner-card h5{margin:0;font-size:0.98rem;font-weight:700;color:rgba(22,28,37,0.95);line-height:1.2;font-family:'Noto Sans TC', 'Helvetica Neue', Arial, sans-serif;letter-spacing:0.2px}
   @media (max-width:767.98px){
-    .partner-card{padding:14px;min-height:150px}
-    .partner-logo{max-height:100px}
+    .partner-card{padding:12px;min-height:140px}
+    .partner-logo{max-height:88px}
+    .partner-card h5{font-size:0.9rem}
   }
   /* 深色偏好但避免純黑：使用深藍/深綠基底以維持和諧 */
   @media (prefers-color-scheme: dark) {
@@ -102,26 +111,30 @@
       <!-- 改為響應式格狀顯示：手機 2 欄、平板 3-4 欄、桌面 6 欄（視寬度） -->
       <div class="logos-grid" role="list" aria-label="合作單位清單">
         <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
-          <div class="partner-card" title="東方探索教育有限公司">
-            <img class="partner-logo partner-logo--large" src="images/serviceslogo/財團法人台灣外展教育發展基金會.png" alt="東方探索教育有限公司 標誌" loading="lazy">
+          <div class="partner-card" title="東方探索教育有限公司">            
+            <label><h5 style="color:white">東方探索教育有限公司</h5></label>
           </div>
+          
         </div>
         
         <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
           <div class="partner-card" title="財團法人台灣外展教育發展基金會">
             <img class="partner-logo partner-logo--large" src="images/serviceslogo/財團法人台灣外展教育發展基金會.png" alt="財團法人台灣外展教育發展基金會 標誌" loading="lazy">
+            <label><h5 style="color:white">財團法人台灣外展教育發展基金會</h5></label>
           </div>
         </div>
 
         <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
           <div class="partner-card" title="團隊發展國際股份有限公司">
             <img class="partner-logo partner-logo--large" src="images/serviceslogo/團隊發展國際股份有限公司_LOGO.jpg" alt="團隊發展國際股份有限公司 標誌" loading="lazy">
+            <label><h5 style="color:white">團隊發展國際股份有限公司</h5></label>
           </div>
         </div>
 
         <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
           <div class="partner-card" title="冒險角落有限公司">
             <img class="partner-logo partner-logo--large" src="images/serviceslogo/冒險角落有限公司.png" alt="冒險角落有限公司 標誌" loading="lazy">
+            <label><h5 style="color:white">冒險角落有限公司</h5></label>
           </div>
         </div>
 
