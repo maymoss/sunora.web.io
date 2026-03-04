@@ -33,6 +33,50 @@
   <link href="css/style.css?V1.15" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+  <style>
+  /* 合作單位區塊微調：卡片化、置中 logo、響應式欄位、懶加載、hover 動畫 */
+  :root{
+    --partner-bg: #f6fbff;         /* 預設卡片底色：柔和藍 */
+    --partner-border: rgba(31,58,100,0.06);
+    --partner-shadow: 0 6px 18px rgba(22,28,37,0.06);
+    --partner-shadow-hover: 0 18px 36px rgba(31,58,100,0.08);
+    --partner-accent: rgba(31,58,100,0.06);
+  }
+  /* 可選配色：如果想切換成柔和綠或暖中性色，可替換以下變數。
+     柔和綠示例: --partner-bg: #f6fffb; --partner-border: rgba(6,80,67,0.06);
+     暖色示例: --partner-bg: #fffaf5; --partner-border: rgba(85,53,34,0.06);
+  */
+
+  .offer_section .heading_container.heading_center h2{margin-bottom:1rem}
+  .offer_section .logos-grid{display:flex;flex-wrap:wrap;margin:0 -12px}
+  .offer_section .partner-col{padding:0 12px;margin-bottom:16px}
+  .partner-card{
+    background: linear-gradient(180deg, #ffffff 0%, var(--partner-bg) 100%);
+    border:1px solid var(--partner-border);
+    border-radius:10px;
+    box-shadow:var(--partner-shadow);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    min-height:150px; /* 固定最小高度，確保卡片高度一致 */
+    transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  .partner-card:hover{transform:translateY(-6px);box-shadow:var(--partner-shadow-hover);border-color:var(--partner-accent)}
+
+  .partner-logo{max-width:100%;max-height:72px;object-fit:contain;display:block;filter:grayscale(0%);opacity:0.98;background-color:#ffffff;padding:6px;border-radius:8px;box-sizing:border-box}
+  /* 可用於個別要放大的 logo（不影響其他 logo） */
+  .partner-logo--large{max-height:96px}
+  @media (max-width:767.98px){
+    .partner-card{padding:14px;min-height:150px}
+    .partner-logo{max-height:100px}
+  }
+  /* 深色偏好但避免純黑：使用深藍/深綠基底以維持和諧 */
+  @media (prefers-color-scheme: dark) {
+    :root{--partner-bg:#9bbbcf;--partner-border:rgba(255,255,255,0.04);--partner-shadow:0 6px 18px rgba(0,0,0,0.6);--partner-shadow-hover:0 18px 36px rgba(0,0,0,0.5)}
+    .partner-card{background: linear-gradient(180deg, rgba(7, 138, 220, 0.9) 0%, rgba(24, 72, 102, 0.9) 100%);color:rgba(255,255,255,0.9)}
+    .partner-logo{filter:brightness(1.05);background-color:#ffffff;padding:6px;border-radius:8px;box-sizing:border-box}
+  }
+  </style>
 </head>
 <!-- head section -->
 
@@ -50,152 +94,39 @@
 		<div class="item"><img src="images/Loge_index4.jpg" alt="Loge index4"></div>
 	</div>
   <section class="offer_section layout_padding-bottom">
-    
-      <div class="container ">
-        <div class="row">
-          <div class="col-md-6  ">
-            <div class="box ">
-              <div class="img-box">
-                <img src="images/ComingSoon.jpeg" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  建置中...
-                </h5>
-				<!--
-                <h6>
-                  <span>20%</span> Off
-                </h6>
-                <a href="">
-                  Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                    <g>
-                      <g>
-                        <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                     c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                     C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                     c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                     C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                     c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                      </g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                  </svg>
-                </a>
-				-->
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6  ">
-            <div class="box ">
-              <div class="img-box">
-                <img src="images/ComingSoon.jpeg" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  建置中.....
-                </h5>
-				<!--
-                <h6>
-                  <span>15%</span> Off
-                </h6>
-                <a href="">
-                  Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                    <g>
-                      <g>
-                        <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                     c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                     C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                     c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                     C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                     c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                      </g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                  </svg>
-                </a>
-				-->
-			  </div>
-            </div>
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>合作單位</h2>
+      </div>
+
+      <!-- 改為響應式格狀顯示：手機 2 欄、平板 3-4 欄、桌面 6 欄（視寬度） -->
+      <div class="logos-grid" role="list" aria-label="合作單位清單">
+        <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
+          <div class="partner-card" title="東方探索教育有限公司">
+            <img class="partner-logo partner-logo--large" src="images/serviceslogo/財團法人台灣外展教育發展基金會.png" alt="東方探索教育有限公司 標誌" loading="lazy">
           </div>
         </div>
+        
+        <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
+          <div class="partner-card" title="財團法人台灣外展教育發展基金會">
+            <img class="partner-logo partner-logo--large" src="images/serviceslogo/財團法人台灣外展教育發展基金會.png" alt="財團法人台灣外展教育發展基金會 標誌" loading="lazy">
+          </div>
+        </div>
+
+        <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
+          <div class="partner-card" title="團隊發展國際股份有限公司">
+            <img class="partner-logo partner-logo--large" src="images/serviceslogo/團隊發展國際股份有限公司_LOGO.jpg" alt="團隊發展國際股份有限公司 標誌" loading="lazy">
+          </div>
+        </div>
+
+        <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
+          <div class="partner-card" title="冒險角落有限公司">
+            <img class="partner-logo partner-logo--large" src="images/serviceslogo/冒險角落有限公司.png" alt="冒險角落有限公司 標誌" loading="lazy">
+          </div>
+        </div>
+
+        <!-- 範例：如果要新增更多合作單位，只需複製 partner-col 塊並更新圖片與 alt -->
+      </div>
     </div>
   </section>
 
@@ -213,8 +144,6 @@
         <li class="active" data-filter="*">All</li>
         <li data-filter=".services">服務內容</li>
         <li data-filter=".gadgetbar">小工具</li>
-        <li data-filter=".comingsoon2">Coming Soon</li>
-        <li data-filter=".comingsoon3">Coming Soon</li>
       </ul>
 
       <div class="filters-content">
