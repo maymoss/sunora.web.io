@@ -38,11 +38,11 @@
   <style>
   /* 合作單位區塊微調：卡片化、置中 logo、響應式欄位、懶加載、hover 動畫 */
   :root{
-    --partner-bg: #f6fbff;         /* 預設卡片底色：柔和藍 */
-    --partner-border: rgba(31,58,100,0.06);
-    --partner-shadow: 0 6px 18px rgba(22,28,37,0.06);
-    --partner-shadow-hover: 0 18px 36px rgba(31,58,100,0.08);
-    --partner-accent: rgba(31,58,100,0.06);
+    --partner-bg: #ffffff;         /* 預設卡片底色：改為淺色 */
+    --partner-border: rgba(31,58,100,0.04);
+    --partner-shadow: 0 6px 18px rgba(22,28,37,0.03);
+    --partner-shadow-hover: 0 18px 36px rgba(31,58,100,0.05);
+    --partner-accent: rgba(31,58,100,0.04);
   }
   /* 可選配色：如果想切換成柔和綠或暖中性色，可替換以下變數。
      柔和綠示例: --partner-bg: #f6fffb; --partner-border: rgba(6,80,67,0.06);
@@ -81,8 +81,9 @@
   }
   /* 深色偏好但避免純黑：使用深藍/深綠基底以維持和諧 */
   @media (prefers-color-scheme: dark) {
-    :root{--partner-bg:#9bbbcf;--partner-border:rgba(255,255,255,0.04);--partner-shadow:0 6px 18px rgba(0,0,0,0.6);--partner-shadow-hover:0 18px 36px rgba(0,0,0,0.5)}
-    .partner-card{background: linear-gradient(180deg, rgba(7, 138, 220, 0.9) 0%, rgba(24, 72, 102, 0.9) 100%);color:rgba(255,255,255,0.9)}
+    /* 在深色模式下仍使用淺色卡片以保持文字可讀性（避免卡片變得過暗） */
+    :root{--partner-bg:#f2f6f9;--partner-border:rgba(255,255,255,0.06);--partner-shadow:0 6px 18px rgba(0,0,0,0.06);--partner-shadow-hover:0 18px 36px rgba(0,0,0,0.08)}
+    .partner-card{background: linear-gradient(180deg, #ffffff 0%, var(--partner-bg) 100%); color: rgba(22,28,37,0.95)}
     .partner-logo{filter:brightness(1.05);background-color:#ffffff;padding:6px;border-radius:8px;box-sizing:border-box}
   }
   </style>
@@ -112,7 +113,7 @@
       <div class="logos-grid" role="list" aria-label="合作單位清單">
         <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
           <div class="partner-card" title="東方探索教育有限公司">            
-            <label><h5 style="color:white">東方探索教育有限公司</h5></label>
+            <label><h5>東方探索教育有限公司</h5></label>
           </div>
           
         </div>
@@ -120,21 +121,21 @@
         <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
           <div class="partner-card" title="財團法人台灣外展教育發展基金會">
             <img class="partner-logo partner-logo--large" src="images/serviceslogo/財團法人台灣外展教育發展基金會.png" alt="財團法人台灣外展教育發展基金會 標誌" loading="lazy">
-            <label><h5 style="color:white">財團法人台灣外展教育發展基金會</h5></label>
+            <label><h5>財團法人台灣外展教育發展基金會</h5></label>
           </div>
         </div>
 
         <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
           <div class="partner-card" title="團隊發展國際股份有限公司">
             <img class="partner-logo partner-logo--large" src="images/serviceslogo/團隊發展國際股份有限公司_LOGO.jpg" alt="團隊發展國際股份有限公司 標誌" loading="lazy">
-            <label><h5 style="color:white">團隊發展國際股份有限公司</h5></label>
+            <label><h5>團隊發展國際股份有限公司</h5></label>
           </div>
         </div>
 
         <div class="partner-col col-6 col-sm-4 col-md-3 col-lg-3" role="listitem">
           <div class="partner-card" title="冒險角落有限公司">
             <img class="partner-logo partner-logo--large" src="images/serviceslogo/冒險角落有限公司.png" alt="冒險角落有限公司 標誌" loading="lazy">
-            <label><h5 style="color:white">冒險角落有限公司</h5></label>
+            <label><h5>冒險角落有限公司</h5></label>
           </div>
         </div>
 
